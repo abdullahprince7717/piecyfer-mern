@@ -91,3 +91,129 @@ function makeFunc() {
 makeFunc()(); // makeFunc() returns displayName function and then we are invoking displayName function followed by (). 
 
 
+
+// Closure scope chain
+
+var globalVariable = "I am global";
+
+function outerFunction1() {
+    let outerVariable = "I am from outer";
+
+    function innerFunction1() {
+        console.log(outerVariable); // Accessing outerVariable from the outer function
+        console.log(innerVariable); // Accessing innerVariable from the inner function
+        console.log(globalVariable); // Accessing globalVariable from the global scope
+    }
+
+    let innerVariable = "I am from inner";
+    return innerFunction1;
+}
+
+var closure1 = outerFunction1();
+closure1();
+
+
+
+//Currying 
+
+// Currying is a function that takes one parameter at a time and returns a new function that takes the next parameter.
+// When calling a curried function, we will pass the arguments one by one.
+
+function add(a) {
+    return function (b) {
+        return a + b;
+    }
+}
+
+console.log(add(1)); // [Function]
+console.log(add(1)(2)); // 3
+
+
+
+// Currying Interview Question
+
+// Sum(1)(2)(3)(4)() // 10
+
+function sum(a) {
+    return function (b) {
+        return function (c) {
+            return function (d) {
+                return function () {
+                    return a + b + c + d;
+                }
+            }
+        }
+    }
+}
+
+console.log(sum(1)(2)(3)(4)()); // 10
+
+
+// Currying Interview Question 2
+
+// evaluate("sum")(2)(5) // 7
+// evaluate("sub")(5)(2) // 3
+// evaluate("mul")(5)(2) // 10
+// evaluate("div")(10)(2) // 5
+
+function evaluate(operation) {
+    if (operation == 'sum') {
+        return function (a) {
+            return function (b) {
+                return a + b;
+            }
+        }
+    }
+    else if (operation == 'sub') {
+        return function (a) {
+            return function (b) {
+                return a - b;
+            }
+        }
+    }
+    else if (operation == 'mul') {
+        return function (a) {
+            return function (b) {
+                return a * b;
+            }
+        }
+    }
+    else if (operation == 'div') {
+        return function (a) {
+            return function (b) {
+                return a / b;
+            }
+        }
+    }
+}
+
+
+//Better implementation of above Interview Question!
+
+function evaluate(operation) {
+    return function (a) {
+        return function (b) {
+            if (operation == 'sum') {
+                return a + b;
+            }
+            else if (operation == 'sub') {
+                return a - b;
+            }
+            else if (operation == 'mul') {
+                return a * b;
+            }
+            else if (operation == 'div') {
+                return a / b;
+            }
+        }
+    }
+}
+
+console.log("sum", evaluate("sum")(2)(5)); // 7
+console.log("sub", evaluate("sub")(5)(2)); // 3
+console.log("mul", evaluate("mul")(5)(2)); // 10
+console.log("div", evaluate("div")(10)(2)); // 5
+
+
+
+
