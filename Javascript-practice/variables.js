@@ -10,12 +10,12 @@
 
 let c = 10; // global scope variable
 
-const example = ()  => {
+const example = () => {
     console.log(c); // 10
     console.log(b); // undefined
     console.log(a); // undefined
 }
-example(); 
+example();
 
 console.log(c); // 10
 console.log("a", a);  // undefined
@@ -59,4 +59,23 @@ i = 20;
 console.log(i); // error
 
 
+function a() {
+    c();
+    function c() {
+        console.log(b)
+    }
+}
+var b = 10;
+a();
+console.log(global);
 
+
+function setTime() {
+    for (let i = 0; i <= 5; i++) {
+        setTimeout(() => {
+            console.log(i);
+        }, 1000)
+    }
+}
+
+setTime()

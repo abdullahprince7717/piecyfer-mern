@@ -215,5 +215,15 @@ console.log("mul", evaluate("mul")(5)(2)); // 10
 console.log("div", evaluate("div")(10)(2)); // 5
 
 
+function now() {
+    for (var i = 1; i <= 5; i++) {
+        setTimeout(() => {
+            console.log(i)
+        }, i * 1000)
+    }
+}
+
+now();
+
 
 
