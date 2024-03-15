@@ -1,4 +1,4 @@
-const path = require('node:path');
+const path = require('node:path'); // node: Protocol is optional in ES6
 
 console.log("Directory Name", __dirname);
 console.log("File Name", __filename);
@@ -36,12 +36,24 @@ console.log("Is Absolute", path.isAbsolute(__dirname));
 // Joins all given path segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
 
 console.log("Join", path.join(__dirname, 'path-module.js'));
+console.log(path.join("folder1", "folder2", "index.html"));
+console.log(path.join("/folder1", "folder2", "index.html"));
+console.log(path.join("/folder1", "//folder2", "index.html"));
+console.log(path.join("/folder1", "//folder2", "../index.html"));
+console.log(path.join(__dirname, "data.json"));
+
 
 
 // Resolve
 // Resolves a sequence of paths or path segments into an absolute path.
 
 console.log("Resolve", path.resolve(__dirname, 'path-module.js'));
+console.log("Resolve", path.resolve('path-module.js'));
+console.log(path.resolve("folder1", "folder2", "index.html"));
+console.log(path.resolve("/folder1", "folder2", "index.html"));
+console.log(path.resolve("/folder1", "//folder2", "index.html"));
+console.log(path.resolve("/folder1", "//folder2", "../index.html"));
+console.log(path.resolve(__dirname, "data.json"));
 
 
 // Relative
