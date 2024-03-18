@@ -163,15 +163,6 @@ async function asyncCallback(arg) {
 
 // Async/Await with Promise and try/catch 
 
-async function asyncExample1() {
-    try {
-        const res = await asyncCallback1(false);
-        console.log(res);
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
 
 async function asyncCallback1(arg) {
     return new Promise((resolve, reject) => {
@@ -182,6 +173,16 @@ async function asyncCallback1(arg) {
             reject("Promise Rejected");
         }
     })
+}
+
+async function asyncExample1() {
+    try {
+        const res = await asyncCallback1(false);
+        console.log(res);
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 asyncExample1();
