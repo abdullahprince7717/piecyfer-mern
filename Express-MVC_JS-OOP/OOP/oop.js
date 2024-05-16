@@ -57,13 +57,11 @@ console.log("person5", person5); // Person { name: 'Abdullah', age: 25 }
 
 class Student extends Person {
     constructor(name, age, grade) {
-        // super() is used to call the parent constructor.
+        // super() // It will call the constructor of the parent class.
+        // If we want to use the properties of the parent class, we have to call the constructor of the parent class.
         // super() must be called before using 'this' keyword.
-        super() // It will call the constructor of the parent class.
-
         super(name, age) // It will call the constructor of the parent class and pass the parameters and the parent class will set the values of the properties for the instance of the child class.
         this.name = name;
-        // super(name, age)
         this.grade = grade;
     }
 
@@ -75,6 +73,19 @@ class Student extends Person {
 let student1 = new Student('Ali', 20, 'A');
 
 console.log("student1", student1); // Student { name: 'Ali', age: 20, grade: 'A' }
-
 student1.greet(); // Hello Ali
 
+
+
+
+
+// instanceof -- It is used to check if an object is an instance of a class or not.
+
+console.log(student1 instanceof Person); // true
+
+
+
+
+
+// Static Keyword -- It is used to define a static method for a class. Static methods are called on the class itself, not on the object instance.
+//  They cant be accessed by the object instance of the class and also cant be accessed by child classes.
