@@ -48,48 +48,56 @@ const observable2 = interval(1000)
 // Subscribe to the observable using the observer function
 
 // observable.subscribe(observer);
-const subscription =  observable2.subscribe(observer);
+// const subscription =  observable2.subscribe(observer);
 
 
+function _fillValuesInTemplate(values, messageTemplate, obj) {
+  let res = values.reduce(function (result, value) {
+    return result.replace("%s", value);
+  }, messageTemplate);
 
+  if(!obj){
+    return res;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-// const {Observable, map, tap, timer, interval} = require('rxjs');
-// const { throttleTime,delay } = require('rxjs/operators');
-
-// const data = [1, 2, 3, 4, 5];
-
-// const api = (data) => {
-//    console.log("api called", data)
-// }
-
-// const observable = new Observable((subscriber)=>{
-//   data.forEach((value)=>{
-//     subscriber.next(value);
-//   })
-// }).pipe(
-//     tap((data) => {
-//       delay(1000);
-//       api(data);
-//     }), 
+  // for(key in obj){
+  //   res = res.replace(key, obj[key]);
+  // }
+  Object.entries(obj).forEach((e) => {
+    let key = e[0];
+    let value = e[1];
+  
+    // Remove the braces if they exist, clean the key, and add the braces back
+    key = key.replace(/^\{\{\s*|\s*\}\}$/g, '').replace(/\s+/g, ' ').trim();
     
-// )
+    // Create a regex pattern to match {{ key }} with optional spaces around the key
+    const regex = new RegExp(`\\{\\{\\s*${key}\\s*\\}\\}`, 'ig');
+    
+    console.log(regex);
+    // console.log(smsTemplate.replaceAll(regex, value));
+    res = res.replaceAll(regex, value);
+  });
 
-// const observer = {
-//     next: (data) => console.log("data in next",data),
-//     error: (error) => console.error(error),
-//     complete: () => console.log('Completed')
-// }
+  return res
+}
 
-// observable.subscribe(observer);
+let smsTemplateValues = [
+  "name",
+  "date",
+  "time"
+];
+
+let obj = { "{{rescheduleURL  }}" : "www.google.com" }
+let obj2 = {"{{ test }}" : "www.test.com" }
+
+let smsTemplate = "Hi %s, we noticed you missed your follow-up appointment today at %s. Hope all is well! To avoid a $100 fee, please reschedule with %s using the following link: {{     rescheduleURL   }} . Heres new link test:  {{ test    }}";
+
+console.log(".....", _fillValuesInTemplate(smsTemplateValues, smsTemplate, ));
+
+const str = 'URL: https://millenniummedicalassociates.zoom.us/j/82926748861 \nMeeting ID: 82926748861';
+
+const arr = str.split(' ') 
+// console.log(arr[arr.length - 1]);
+// console.log('###', str.replace('URL: ', "Hellow"))
+
+
